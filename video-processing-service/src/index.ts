@@ -1,6 +1,6 @@
 import express from "express";
-import ffmpeg from "fluent-ffmpeg";
 import ffmpegInstaller from "@ffmpeg-installer/ffmpeg";
+import ffmpeg from "fluent-ffmpeg";
 
 ffmpeg.setFfmpegPath(ffmpegInstaller.path);
 const app = express();
@@ -28,7 +28,7 @@ app.post("/process-video", (req, res) => {
       res.status(200).send("Video processing started.");
     })
     // On error, notify user with 500 error
-    .on("error", (err) => {
+    .on("error", (err: Error) => {
       console.log(`An error occured: ${err.message}`);
       res.status(500).send(`Internal Server Error: ${err.message}`);
     })
