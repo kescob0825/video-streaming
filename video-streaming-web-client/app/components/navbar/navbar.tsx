@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { User } from "firebase/auth";
 
 import styles from "./navbar.module.css";
@@ -15,7 +15,7 @@ export default function Navbar() {
     const [user, setUser] = useState<User | null>(null);
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChangedHelper((user: SetStateAction<User | null>) => {
+        const unsubscribe = onAuthStateChangedHelper((user) => {
             setUser(user)
         });
 

@@ -16,12 +16,12 @@ export default function SignIn({ user }: SignInProps) {
         <Fragment>
             {
                 user ? (
-                    <button className={styles.signin} onClick={signInWithGoogle}>
-                        Sign In
-                    </button>
-                ) : (
                     <button className={styles.signin} onClick={signOutGoogleAccount}>
                         Sign Out
+                    </button>
+                ) : (
+                    <button className={styles.signin} onClick={signInWithGoogle}>
+                        Sign In
                     </button>
                 )
             }
