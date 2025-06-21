@@ -1,6 +1,5 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
 import {
   getAuth,
   signInWithPopup,
@@ -23,7 +22,6 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
 const auth = getAuth(app);
 
 /**
@@ -39,9 +37,9 @@ export function signInWithGoogle() {
  * Signs the user out.
  * @returns A promise that resolves when the user is signed out.
  */
-export function signOut() {
+export function signOutGoogleAccount() {
     return auth.signOut();
-}
+};
 
 /**
  * Trigger a callback when user auth state changes.
@@ -49,4 +47,4 @@ export function signOut() {
  */
 export function onAuthStateChangedHelper(callback: (user: User | null) => void) {
     return onAuthStateChanged(auth, callback);
-}
+};
