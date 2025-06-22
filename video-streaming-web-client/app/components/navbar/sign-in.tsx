@@ -1,3 +1,4 @@
+import { User } from "firebase/auth";
 import { Fragment } from "react";
 
 import {
@@ -5,7 +6,6 @@ import {
     signOutGoogleAccount,
 } from "@/app/util/firebase/firebase";
 import styles from "./sign-in.module.css";
-import { User } from "firebase/auth";
 
 interface SignInProps {
     user: User | null;
