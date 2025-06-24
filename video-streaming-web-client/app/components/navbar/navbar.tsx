@@ -7,6 +7,7 @@ import { User } from "firebase/auth";
 
 import styles from "./navbar.module.css";
 import SignIn from "./sign-in";
+import Upload from "./upload";
 import { onAuthStateChangedHelper } from "../../util/firebase/firebase";
 
 export default function Navbar() {
@@ -34,10 +35,12 @@ export default function Navbar() {
                 />
                 <h1>ideo Streaming</h1>
             </Link>
-            {
-                // TODO: Upload button goes here.
-            }
-            <SignIn user={user}/>
+            <div className={styles.uploadAndSignInContainer}>
+                {
+                    user && <Upload />
+                }
+                <SignIn user={user} />
+            </div>
         </nav>
     );
 }
