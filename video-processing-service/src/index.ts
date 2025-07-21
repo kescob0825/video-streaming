@@ -7,6 +7,8 @@ import {
   setupDirectories,
   uploadProcessedVideo,
 } from "./storage.js";
+import { setVideo, isVideoNew } from "./firestore.js";
+import { stat } from "fs";
 
 setupDirectories();
 
@@ -33,7 +35,18 @@ app.post(
     }
     const inputFileName = data.name;
     const outputFileName = `processed-${inputFileName}`;
+    const videoId = inputFileName.split(".")[0]
 
+    if (!isVideoNew(videoId)) {
+      res.status(400).send("Bad Request: Video already processed.");
+      return;
+    } else {
+      await setVideo(videoId, {
+        id: videoId,
+        uid: videoId.split("-")[0],
+        status: "processing"
+      })
+    }
     // Download raw video from Cloud Storage
     await downloadRawVideo(inputFileName);
 
@@ -52,6 +65,11 @@ app.post(
     // Upload the processed video to Cloud Storage
     await uploadProcessedVideo(outputFileName);
 
+    await setVideo(videoId, {
+      status: "processed",
+      filename: outputFileName
+    })
+
     await Promise.all([
       deleteRawVideo(inputFileName),
       deleteProcessedVideo(outputFileName),
@@ -67,4 +85,8 @@ const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Listening on http://localhost:${port}`);
 });
+
+function addVideo(videoId: any, arg1: { id: any; uid: any; status: string; }) {
+  throw new Error("Function not implemented.");
+}
 
